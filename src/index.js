@@ -55,10 +55,26 @@ const changeToFrontImg = async ()=>{
 }
 
 const closeNotFoundMsg = ()=>{
-    document.getElementById('not-found-msg').style='display: none'
+    document.getElementById('not-found-msg').style='display: none';
 }
 
-document.getElementById('search-btn').addEventListener('click',appendPokemonData);
+const displayPokemonData = async ()=>{
+    clearDisplay();
+    if(await appendPokemonData())
+    {
+        document.getElementById('data').style='display: block';
+    }
+}
+
+const clearDisplay =()=>{
+    document.getElementById('not-found-msg').style='display: none';
+    document.getElementById('data').style='display: none';
+    document.getElementById('types-list').innerHTML = '';
+};
+
+
+
+document.getElementById('search-btn').addEventListener('click',displayPokemonData);
 document.getElementById('poke-img').addEventListener('mouseover',changeToBackImg);
 document.getElementById('poke-img').addEventListener('mouseout',changeToFrontImg);
 document.getElementById('close-msg').addEventListener('click',closeNotFoundMsg);
