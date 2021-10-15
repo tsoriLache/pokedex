@@ -36,7 +36,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div id="data">
+        <div id="data" style="display: none;">
             <table class="table">
                 <thead>
                   <tr>
@@ -64,9 +64,34 @@
                         <img  id="poke-img" src="" alt="img">
                     </th>
                   </tr>
+                  <tr>
+                    <th scope="row">
+                        <span class="badge bg-primary">Types:</span>
+                        <div id="types-list" class="list-group"> 
+                          <!-- generated types <li> -->
+                        </div>
+                    </th>
+                  </tr>
                 </tbody>
               </table>
         </div>
+        <div id="pokemon-list-by-type" class="list-group" style="display: none;">
+            <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
+        </div>
+        <ul class='nav' style="display: none;">
+            <li>
+              <div class="dropdown">
+                <p class="dropdown-toggle" data-toggle="dropdown">Pokémon list</p>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
+                  <li class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action">A second item</button>
+                    <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+                    <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+                  </li>
+                </ul>
+              </div>  
+            </li>
+        </ul>
     </main>
 
 

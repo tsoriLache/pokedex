@@ -72,9 +72,21 @@ const clearDisplay =()=>{
     document.getElementById('types-list').innerHTML = '';
 };
 
+const getPokémonsByType = async ({target})=>{
+    const type = target.innerText;
+    const ApiResult = await axios.get(`https://pokeapi.co/api/v2/type/${type}/`)
+    const pokeData = ApiResult.data;
+    const PokémonArray = pokeData.pokemon.map((pokemon)=>pokemon.pokemon.name)
+    console.log(PokémonArray)
+    // appendTypeList(PokémonArray)
+    return PokémonArray;
+}
+
+
 
 
 document.getElementById('search-btn').addEventListener('click',displayPokemonData);
 document.getElementById('poke-img').addEventListener('mouseover',changeToBackImg);
 document.getElementById('poke-img').addEventListener('mouseout',changeToFrontImg);
 document.getElementById('close-msg').addEventListener('click',closeNotFoundMsg);
+document.getElementById('search-inpt').addEventListener("input",clearDisplay);
