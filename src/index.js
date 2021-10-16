@@ -80,7 +80,7 @@ const displayPokemonData = async (e)=>{
     clearDisplay();
     if(await appendPokemonData())
     {
-        document.getElementById('data').style='display: block';
+        document.getElementById('data').style='display: flex;';
     }
 }
 
@@ -102,7 +102,15 @@ const getPokémonsByType = async (target)=>{
 const handlePokListEvent= async({target})=>{
     document.getElementById('pokemon-list').innerHTML = '';
     appendPokemonByTypeList(await getPokémonsByType(target));
+    document.getElementById('data').style='display: none';
     document.getElementById('pokemon-list-opener').style='display: block';
+    
+}
+
+const closePokeList = ()=>{
+    document.getElementById('pokemon-list-opener').style='display: none';
+    document.getElementById('data').style='display: block';
+
 }
 
 
@@ -112,3 +120,4 @@ document.getElementById('poke-img').addEventListener('mouseover',changeToBackImg
 document.getElementById('poke-img').addEventListener('mouseout',changeToFrontImg);
 document.getElementById('close-msg').addEventListener('click',closeNotFoundMsg);
 document.getElementById('search-inpt').addEventListener("input",clearDisplay);
+document.getElementById('close-pok-list-btn').addEventListener("click",closePokeList);
