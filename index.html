@@ -80,20 +80,13 @@
         <div id="pokemon-list-by-type" class="list-group" style="display: none;">
             <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
         </div>
-        <ul class='nav' style="display: none;">
-            <li>
-              <div class="dropdown">
-                <p class="dropdown-toggle" data-toggle="dropdown">Pokémon list</p>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
-                  <li class="list-group">
-                    <button type="button" class="list-group-item list-group-item-action">A second item</button>
-                    <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-                    <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
-                  </li>
-                </ul>
-              </div>  
-            </li>
-        </ul>
+        <div id="pokemon-list-opener" style="display: none;">
+          <button id="close-pok-list-btn" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <ul id="pokemon-list" class="alert alert-warning alert-dismissible fade show" role="alert" style="overflow-y: scroll;max-height: 40vh;" >
+          </ul>
+        </div>
     </main>
 
 
