@@ -93,9 +93,9 @@ const clearDisplay =()=>{
 
 const getPokémonsByType = async (target)=>{
     const type = target.innerText;
-    const ApiResult = await axios.get(`https://pokeapi.co/api/v2/type/${type}/`)
+    const ApiResult = await axios.get(`https://pokeapi.co/api/v2/type/${type}/`);
     const pokeData = ApiResult.data;
-    const PokémonArray = pokeData.pokemon.map((pokemon)=>pokemon.pokemon.name)
+    const PokémonArray = pokeData.pokemon.map((pokemon)=>pokemon.pokemon.name);
     return PokémonArray;
 }
 
@@ -114,10 +114,10 @@ const closePokeList = ()=>{
 }
 
 
-
+//Event Listeners
 document.getElementById('search-btn').addEventListener('click',displayPokemonData);
 document.getElementById('poke-img').addEventListener('mouseover',changeToBackImg);
 document.getElementById('poke-img').addEventListener('mouseout',changeToFrontImg);
 document.getElementById('close-msg').addEventListener('click',closeNotFoundMsg);
-document.getElementById('search-inpt').addEventListener("input",clearDisplay);
-document.getElementById('close-pok-list-btn').addEventListener("click",closePokeList);
+document.getElementById('search-inpt').addEventListener('input',clearDisplay);
+document.getElementById('close-pok-list-btn').addEventListener('click',closePokeList);
