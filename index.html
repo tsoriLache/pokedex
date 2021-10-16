@@ -20,15 +20,17 @@
      </style>
 
 </head>
-<body>
-
-    <main id="main" class="container px-4">
+<body class="position-relative" >
+    <main id="main" class="container px-4 position-relative" >
         <div class="form-outline mt-5">
-            <label class="form-label" for="typeText">Text input</label>
-            <input type="text" id="search-inpt" class="form-control" />
-        </div>
-        <div class="d-grid gap-2 d-md-block">
-            <button id="search-btn" class="btn btn-primary" type="button">Button</button>
+          <h1 class="form-label" >
+            <img src="./pokeball.png" width="100" height="100" class="d-inline-block align-top" alt="">
+            POKEDEX
+          </h1>
+          <p class="form-inline">
+            <input id="search-inpt" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button id="search-btn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </p>
         </div>
         <div id="not-found-msg" style="display: none ;" class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>oh no!</strong> &nbsp; sorry pockemon doesn't exist
