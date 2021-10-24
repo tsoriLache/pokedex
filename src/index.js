@@ -1,6 +1,3 @@
-let username;
-
-
 const appendPokemonData = async ()=>{
     try{
         const pokeRelevantData = await getPokemonData();
@@ -8,9 +5,8 @@ const appendPokemonData = async ()=>{
         document.getElementById("poke-name").innerText = pokeRelevantData.name ;
         document.getElementById("height").innerText = pokeRelevantData.height ;
         document.getElementById("weight").innerText = pokeRelevantData.weight ;
-        document.getElementById("abilities").innerText = pokeRelevantData.abilities ;
-        document.getElementById("poke-img").src = pokeRelevantData.front_pic ;
-        const typeList = pokeRelevantData.types;
+        document.getElementById("poke-img").src = pokeRelevantData.image ;
+        typeList = pokeRelevantData.types.map((type)=>type.type.name);
         appendTypeList(typeList);
         return pokeRelevantData; //     added for display..need to find better solution.
     }
@@ -54,15 +50,21 @@ const changeSearch = ({target})=>{
 
 const getPokemonData = async ()=>{
     const searchTxt=document.getElementById('search-inpt').value;
-    const pokeData = await axios.get(`http://localhost:8080/pokemon/get/${searchTxt}/`,{headers: {'username': `${username}`}})
-    return pokeData;
-    
+    const ApiResult = await axios.get(`https://pokeapi.co/api/v2/pokemon/${searchTxt}/`)
+    const pokeData = ApiResult.data;
+    return { name : pokeData.species.name,
+             height : pokeData.height, 
+             weight : pokeData.weight,
+             image : pokeData.sprites.front_default,
+             backImage : pokeData.sprites.back_default,
+             types : pokeData.types
+            }
 }
 
 
 const changeToBackImg = async ()=>{
     const pokeRelevantData = await getPokemonData();
-    document.getElementById("poke-img").src = pokeRelevantData.back_pic ;
+    document.getElementById("poke-img").src = pokeRelevantData.backImage ;
 }
 
 const changeToFrontImg = async ()=>{
@@ -112,37 +114,6 @@ const closePokeList = ()=>{
 }
 
 
-
-const handleSingingSubmit = (event)=>{
-    event.preventDefault();
-    username = document.getElementById('username-input').value;
-    document.getElementById('username').innerText=username
-    document.getElementById('signig-form').style='display: none'
-}
-
-const handleCatch = async()=>{
-    const id = document.getElementById('poke-id').value;
-    await axios.put(`http://localhost:8080/pokemon/catch/${id}`, { pokemon: await getPokemonData()}, {headers: {'username': `${username}`}})
-}
-
-
-const handleRelease = async()=>{
-    const id = document.getElementById('poke-id').value;
-    await axios.delete(`http://localhost:8080/pokemon/release/${id}`,{},{headers: {'username': `${username}`}})   
-}
-
-const showPokemons = async()=>{
-    const pokemonsArr = await axios.get('http://localhost:8080/pokemon/', {headers: {'username': `${username}`}}) 
-    for(pokemon of pokemonsArr){
-        const btn = createBtnElement(pokemon);
-        // btn.addEventListener('click',changeSearch);
-        document.getElementById('my-pokemons-btn').appendChild(btn); 
-    }}
-
-const singing = async()=>{
-    await axios.post('http://localhost:8080/pokemon/signin',{}, {headers: {'username': `${username}`}})  
-}
-
 //Event Listeners
 document.getElementById('search-btn').addEventListener('click',displayPokemonData);
 document.getElementById('poke-img').addEventListener('mouseover',changeToBackImg);
@@ -150,9 +121,3 @@ document.getElementById('poke-img').addEventListener('mouseout',changeToFrontImg
 document.getElementById('close-msg').addEventListener('click',closeNotFoundMsg);
 document.getElementById('search-inpt').addEventListener('input',clearDisplay);
 document.getElementById('close-pok-list-btn').addEventListener('click',closePokeList);
-
-//
-document.getElementById('submit-btn').addEventListener('click',handleSingingSubmit)
-document.getElementById('catch-btn').addEventListener('click',handleCatch)
-document.getElementById('release-btn').addEventListener('click',handleRelease)
-document.getElementById('my-pokemons-btn').addEventListener('click',showPokemons)
