@@ -5,6 +5,7 @@ const appendPokemonData = async ()=>{
     try{
         const pokeRelevantData = await getPokemonData();
         //append data
+        document.getElementById("poke-id").innerText = pokeRelevantData.id ;
         document.getElementById("poke-name").innerText = pokeRelevantData.name ;
         document.getElementById("height").innerText = pokeRelevantData.height ;
         document.getElementById("weight").innerText = pokeRelevantData.weight ;
@@ -54,7 +55,9 @@ const changeSearch = ({target})=>{
 
 const getPokemonData = async ()=>{
     const searchTxt=document.getElementById('search-inpt').value;
-    const pokeData = await axios.get(`http://localhost:8080/pokemon/get/${searchTxt}/`,{headers: {'username': `${username}`}})
+    const apiResult = await axios.get(`http://localhost:8080/pokemon/get/${searchTxt}/`,
+        {headers: {"Access-Control-Allow-Origin":"*",'username': `${username}`}})
+    const pokeData = apiResult.data;   
     return pokeData;
     
 }
@@ -67,7 +70,7 @@ const changeToBackImg = async ()=>{
 
 const changeToFrontImg = async ()=>{
     const pokeRelevantData = await getPokemonData();
-    document.getElementById("poke-img").src = pokeRelevantData.image;
+    document.getElementById("poke-img").src = pokeRelevantData.front_pic;
 }
 
 const closeNotFoundMsg = ()=>{
@@ -113,30 +116,37 @@ const closePokeList = ()=>{
 
 
 
-const handleSingingSubmit = (event)=>{
+const handleSingingSubmit =async (event)=>{
     event.preventDefault();
     username = document.getElementById('username-input').value;
     document.getElementById('username').innerText=username
-    document.getElementById('signig-form').style='display: none'
+    document.getElementById('signing-form').style='display: none !important'
+    const res = await axios.post('http://localhost:8080/user/signin',{}, {
+      headers: {'username': `${username}`}})
+      console.log(res.data);  
 }
 
 const handleCatch = async()=>{
-    const id = document.getElementById('poke-id').value;
+    const id = document.getElementById('poke-id').innerText;
     await axios.put(`http://localhost:8080/pokemon/catch/${id}`, { pokemon: await getPokemonData()}, {headers: {'username': `${username}`}})
 }
 
 
 const handleRelease = async()=>{
-    const id = document.getElementById('poke-id').value;
-    await axios.delete(`http://localhost:8080/pokemon/release/${id}`,{},{headers: {'username': `${username}`}})   
+    const id = document.getElementById('poke-id').innerText;
+    await axios.delete(`http://localhost:8080/pokemon/release/${id}`,{headers: {'username': `${username}`,
+    'Accept' : 'application/json',
+    'Authorization' : 'Bearer <token_here>'}})  
+    document.getElementById('my-poke-list').innerHTML=''; 
 }
 
 const showPokemons = async()=>{
-    const pokemonsArr = await axios.get('http://localhost:8080/pokemon/', {headers: {'username': `${username}`}}) 
-    for(pokemon of pokemonsArr){
-        const btn = createBtnElement(pokemon);
-        // btn.addEventListener('click',changeSearch);
-        document.getElementById('my-pokemons-btn').appendChild(btn); 
+    const pokemonsArr = await axios.get('http://localhost:8080/pokemon/', {headers: {'username': `${username}`}})
+    console.log(pokemonsArr.data); 
+    for(pokemon of pokemonsArr.data){
+        const btn = createBtnElement(pokemon.name);
+        btn.addEventListener('click',changeSearch);
+        document.getElementById('my-poke-list').appendChild(btn); 
     }}
 
 const singing = async()=>{

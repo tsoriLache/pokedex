@@ -24,6 +24,14 @@
     <h1 id="username" class="d-flex align-self-end p-5">
       
     </h1>
+    <form id="signing-form" class="d-flex align-self-end p-5">
+      <div class="form-group">
+        <label for="username-input">Sign In:</label>
+        <input  class="form-control mt-3" id="username-input" placeholder="Enter Username">
+        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      </div>
+      <button id="submit-btn" type="submit" class="btn btn-primary btn-sm mt-5" style="height: 110%;">Submit</button>
+    </form>
     <main id="main" class="container px-4 position-relative" >
         <div class="form-outline mt-5">
           <h1 class="form-label font-weight-bold"  style="font-size: 7vmax;">
@@ -36,26 +44,25 @@
             <button id="search-btn" class="btn btn-dark my-2 my-sm-0 btn-sm " type="submit">Search</button>
           </p>
         </div>
-        <form id="signig-form">
-          <div class="form-group">
-            <label for="username-input">Sign In:</label>
-            <input type="email" class="form-control" id="username-input" placeholder="Enter Username">
-            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-          </div>
-          <button id="submit-btn" type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <div>
-          <button id="my-pokemons-btn" type="button" class="btn btn-dark">show my pokemons</button>
+        <button id="my-pokemons-btn" type="button" class="btn btn-dark">show my pokemons</button>
+        <div id="my-poke-list">
+          <!-- generated pokemon list -->
         </div>
         <div id="not-found-msg" style="display: none ;" class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>oh no!</strong> &nbsp; sorry pockemon doesn't exist
+            <strong>oh no!</strong> &nbsp; sorry pokemon doesn't exist
             <button id="close-msg" type="button" class="close" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div id="data" >
+        <div id="data" style="display: none ;">
             <table class="table">
                 <thead>
+                  <tr>
+                    <th scope="col">
+                        <span class="badge bg-primary">Id:</span>
+                        <div id="poke-id"></div>
+                    </th>
+                  </tr>
                   <tr>
                     <th scope="col">
                         <span class="badge bg-primary">Name:</span>
