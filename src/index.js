@@ -116,11 +116,15 @@ const closePokeList = ()=>{
 
 
 
-const handleSingingSubmit =async (event)=>{
+const handleSigningSubmit =async (event)=>{
     event.preventDefault();
     username = document.getElementById('username-input').value;
-    document.getElementById('username').innerText=username
-    document.getElementById('signing-form').style='display: none !important'
+    document.getElementById('username').innerText+=username
+    document.getElementById('signing-form').classList.remove('d-flex');
+    document.getElementById('signing-form').classList.add('d-none');
+    document.getElementById('sign-out-btn').classList.remove('d-none');
+    document.getElementById('sign-out-btn').classList.add(['d-flex', 'align-self-end' ,'p-5']);
+
     const res = await axios.post('http://localhost:8080/user/signin',{}, {
       headers: {'username': `${username}`}})
       console.log(res.data);  
@@ -149,8 +153,12 @@ const showPokemons = async()=>{
         document.getElementById('my-poke-list').appendChild(btn); 
     }}
 
-const singing = async()=>{
-    await axios.post('http://localhost:8080/pokemon/signin',{}, {headers: {'username': `${username}`}})  
+
+
+const signOut = ()=>{
+    username = '';
+    document.getElementById('username').innerText=username
+    document.getElementById('signing-form').style='display: flex'
 }
 
 //Event Listeners
@@ -162,7 +170,8 @@ document.getElementById('search-inpt').addEventListener('input',clearDisplay);
 document.getElementById('close-pok-list-btn').addEventListener('click',closePokeList);
 
 //
-document.getElementById('submit-btn').addEventListener('click',handleSingingSubmit)
+document.getElementById('submit-btn').addEventListener('click',handleSigningSubmit)
 document.getElementById('catch-btn').addEventListener('click',handleCatch)
 document.getElementById('release-btn').addEventListener('click',handleRelease)
 document.getElementById('my-pokemons-btn').addEventListener('click',showPokemons)
+document.getElementById('sign-out-btn').addEventListener('click',signOut)
